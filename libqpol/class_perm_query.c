@@ -356,7 +356,7 @@ int qpol_policy_get_class_by_name(const qpol_policy_t * policy, const char *name
 	}
 
 	db = &policy->p->p;
-	internal_datum = hashtab_search(db->p_classes.table, (const hashtab_key_t)name);
+	internal_datum = hashtab_search(db->p_classes.table, (hashtab_key_t)name);
 	if (internal_datum == NULL) {
 		*obj_class = NULL;
 		ERR(policy, "could not find class %s", name);
@@ -446,7 +446,6 @@ int qpol_class_get_common(const qpol_policy_t * policy, const qpol_class_t * obj
 int qpol_class_get_perm_iter(const qpol_policy_t * policy, const qpol_class_t * obj_class, qpol_iterator_t ** perms)
 {
 	class_datum_t *internal_datum = NULL;
-	policydb_t *db = NULL;
 	int error = 0;
 	hash_state_t *hs = NULL;
 
@@ -459,7 +458,6 @@ int qpol_class_get_perm_iter(const qpol_policy_t * policy, const qpol_class_t * 
 	}
 
 	internal_datum = (class_datum_t *) obj_class;
-	db = &policy->p->p;
 
 	hs = calloc(1, sizeof(hash_state_t));
 	if (hs == NULL) {
@@ -523,7 +521,7 @@ int qpol_policy_get_common_by_name(const qpol_policy_t * policy, const char *nam
 	}
 
 	db = &policy->p->p;
-	internal_datum = hashtab_search(db->p_commons.table, (const hashtab_key_t)name);
+	internal_datum = hashtab_search(db->p_commons.table, (hashtab_key_t)name);
 	if (internal_datum == NULL) {
 		*common = NULL;
 		ERR(policy, "could not find common %s", name);
@@ -594,7 +592,6 @@ int qpol_common_get_value(const qpol_policy_t * policy, const qpol_common_t * co
 int qpol_common_get_perm_iter(const qpol_policy_t * policy, const qpol_common_t * common, qpol_iterator_t ** perms)
 {
 	common_datum_t *internal_datum = NULL;
-	policydb_t *db = NULL;
 	int error = 0;
 	hash_state_t *hs = NULL;
 
@@ -607,7 +604,6 @@ int qpol_common_get_perm_iter(const qpol_policy_t * policy, const qpol_common_t 
 	}
 
 	internal_datum = (common_datum_t *) common;
-	db = &policy->p->p;
 
 	hs = calloc(1, sizeof(hash_state_t));
 	if (hs == NULL) {
