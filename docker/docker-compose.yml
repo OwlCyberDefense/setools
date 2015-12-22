@@ -1,0 +1,5 @@
+master:
+  build: .
+  command: /bin/bash
+  volumes:
+    - ..:/home/docker/setools/
