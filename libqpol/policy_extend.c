@@ -454,6 +454,7 @@ static int qpol_policy_add_isid_names(qpol_policy_t * policy)
  */
 static int qpol_policy_match_system(qpol_policy_t * policy)
 {
+#ifdef LIBSELINUX
 	int kernvers = security_policyvers();
 	unsigned int currentvers = policy->p->p.policyvers;
 	int error;
@@ -473,6 +474,8 @@ static int qpol_policy_match_system(qpol_policy_t * policy)
 		WARN(policy, "Policy would be downgraded from version %d to %d.", currentvers, kernvers);
 	}
 	return 0;
+#endif
+	return -1;
 }
 
 /**
