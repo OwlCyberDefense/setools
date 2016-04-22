@@ -175,7 +175,6 @@ int qpol_default_policy_find(char **path)
 #include <stdlib.h>
 #include <bzlib.h>
 #include <string.h>
-#include <sys/sendfile.h>
 
 #define BZ2_MAGICSTR "BZh"
 #define BZ2_MAGICLEN (sizeof(BZ2_MAGICSTR)-1)
