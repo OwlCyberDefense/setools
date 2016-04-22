@@ -47,6 +47,7 @@ const char *libqpol_get_version(void)
 
 static int search_policy_source_file(char **path)
 {
+#ifdef LIBSELINUX
 	int error;
 	char *source_path;
 	if (asprintf(&source_path, "%s/src/policy/policy.conf", selinux_policy_root()) < 0) {
@@ -59,9 +60,11 @@ static int search_policy_source_file(char **path)
 		return 1;
 	}
 	*path = source_path;
+#endif
 	return 0;
 }
 
+#ifdef LIBSELINUX
 static int get_binpol_version(const char *policy_fname)
 {
 	FILE *policy_fp = NULL;
@@ -81,26 +84,27 @@ static int get_binpol_version(const char *policy_fname)
 	fclose(policy_fp);
 	return ret_version;
 }
+#endif
 
 static int search_policy_binary_file(char **path)
 {
+	int retval = -1;
+#ifdef LIBSELINUX
 	const char *binary_path;
 	if ((binary_path = selinux_binary_policy_path()) == NULL) {
 		return -1;
 	}
 
 	int expected_version = -1, latest_version = -1;
-#ifdef LIBSELINUX
 	/* if the system has SELinux enabled, prefer the policy whose
 	   name matches the current policy version */
 	if ((expected_version = security_policyvers()) < 0) {
 		return -1;
 	}
-#endif
 
 	glob_t glob_buf;
 	struct stat fs;
-	int rt, error = 0, retval = -1;
+	int rt, error = 0;
 	size_t i;
 	char *pattern = NULL;
 	if (asprintf(&pattern, "%s.*", binary_path) < 0) {
@@ -152,6 +156,7 @@ static int search_policy_binary_file(char **path)
 	if (retval == -1) {
 		errno = error;
 	}
+#endif
 	return retval;
 }
 
@@ -175,7 +180,6 @@ int qpol_default_policy_find(char **path)
 #include <stdlib.h>
 #include <bzlib.h>
 #include <string.h>
-#include <sys/sendfile.h>
 
 #define BZ2_MAGICSTR "BZh"
 #define BZ2_MAGICLEN (sizeof(BZ2_MAGICSTR)-1)

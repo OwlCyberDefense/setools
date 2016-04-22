@@ -27,7 +27,10 @@ port_range = namedtuple("port_range", ["low", "high"])
 
 # Python does not have a constant
 # for the DCCP protocol.
-IPPROTO_DCCP = getprotobyname("dccp")
+try:
+    IPPROTO_DCCP = getprotobyname("dccp")
+except:
+    IPPROTO_DCCP = 33
 
 
 def netifcon_factory(policy, name):
