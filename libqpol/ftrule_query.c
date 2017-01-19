@@ -102,6 +102,7 @@ static size_t filename_trans_state_size(const qpol_iterator_t * iter)
 	filename_trans_state_t *fts = NULL;
 	const policydb_t *db = NULL;
 	size_t count = 0;
+    unsigned int i = 0;
 
 	if (!iter || !(fts = qpol_iterator_state(iter)) || !(db = qpol_iterator_policy(iter))) {
 		errno = EINVAL;
@@ -109,7 +110,7 @@ static size_t filename_trans_state_size(const qpol_iterator_t * iter)
 	}
 
 	hashtab_ptr_t cur = NULL;
-	for (unsigned int i = 0; i < db->filename_trans->size; i++) {
+	for (i = 0; i < db->filename_trans->size; i++) {
 		cur = db->filename_trans->htable[i];
 		while (cur != NULL) {
 			count++;

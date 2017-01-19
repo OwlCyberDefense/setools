@@ -105,6 +105,7 @@ static size_t range_trans_state_size(const qpol_iterator_t * iter)
 	range_trans_state_t *rs = NULL;
     const policydb_t *db = NULL;
 	size_t count = 0;
+    unsigned int i = 0;
 
 	if (!iter || !(rs = qpol_iterator_state(iter)) || !(db = qpol_iterator_policy(iter))) {
 		errno = EINVAL;
@@ -112,7 +113,7 @@ static size_t range_trans_state_size(const qpol_iterator_t * iter)
 	}
 
     hashtab_ptr_t cur = NULL;
-    for (unsigned int i = 0; i < db->range_tr->size; i++) {
+    for (i = 0; i < db->range_tr->size; i++) {
         cur = db->range_tr->htable[i];
         while (cur != NULL) {
             count++;
