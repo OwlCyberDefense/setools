@@ -163,7 +163,7 @@ int qpol_policy_get_range_trans_iter(const qpol_policy_t * policy, qpol_iterator
     rs->cur_item = db->range_tr->htable[rs->bucket];
     while (rs->cur_item == NULL) {
         rs->bucket++;
-        if (rs->bucket > db->range_tr->size) {
+        if (rs->bucket >= db->range_tr->size) {
             break;
         }
 
