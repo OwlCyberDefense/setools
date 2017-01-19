@@ -160,7 +160,6 @@ int qpol_policy_get_filename_trans_iter(const qpol_policy_t * policy, qpol_itera
 	}
 
 	if (fts->cur_item != NULL) {
-        printf("%p\n", fts->cur_item);
 		fts->cur = (filename_trans_t*)fts->cur_item->key;
 	}
 	
