@@ -3375,6 +3375,7 @@ int define_filename_trans(void)
 					yyerror("out of memory");
 					goto bad;
 				}
+				ftdatum->otype = otype;
 				rc = hashtab_insert(policydbp->filename_trans,
 						    (hashtab_key_t)ft,
 						    ftdatum);
