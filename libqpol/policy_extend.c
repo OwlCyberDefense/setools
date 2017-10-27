@@ -158,7 +158,7 @@ static int qpol_policy_build_attrs_from_map(qpol_policy_t * policy)
 		 * with this attribute */
 		/* Does not exist */
 		if (db->p_type_val_to_name[i] == NULL){
-			snprintf(buff, 9, "@ttr%04zd", i + 1);
+			snprintf(buff, 9, "@ttr%04zd", (i + 1) % 10000);
 			tmp_name = strdup(buff);
 			if (!tmp_name) {
 				error = errno;
