@@ -44,6 +44,9 @@
 #ifndef IPPROTO_DCCP
 #define IPPROTO_DCCP 33
 #endif
+#ifndef IPPROTO_SCTP
+#define IPPROTO_SCTP 132
+#endif
 #include <arpa/inet.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -4933,6 +4936,8 @@ int define_port_context(unsigned int low, unsigned int high)
 		protocol = IPPROTO_UDP;
 	} else if ((strcmp(id, "dccp") == 0) || (strcmp(id, "DCCP") == 0)) {
 		protocol = IPPROTO_DCCP;
+	} else if ((strcmp(id, "sctp") == 0) || (strcmp(id, "SCTP") == 0)) {
+		protocol = IPPROTO_SCTP;
 	} else {
 		yyerror2("unrecognized protocol %s", id);
 		goto bad;
