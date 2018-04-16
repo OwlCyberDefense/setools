@@ -38,6 +38,10 @@ try:
     IPPROTO_DCCP = getprotobyname("dccp")
 except socket.error:
     IPPROTO_DCCP = 33
+try:
+    IPPROTO_SCTP = getprotobyname("sctp")
+except socket.error:
+    IPPROTO_SCTP = 132
 
 
 def netifcon_factory(policy, name):
@@ -196,6 +200,7 @@ class PortconProtocol(int, PolicyEnum):
     tcp = IPPROTO_TCP
     udp = IPPROTO_UDP
     dccp = IPPROTO_DCCP
+    sctp = IPPROTO_SCTP
 
 
 class Portcon(NetContext):

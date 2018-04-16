@@ -12,6 +12,7 @@ typedef uint16_t __u16;
 #define s6_addr32	__u6_addr32
 
 #define IPPROTO_DCCP 33
+#define IPPROTO_SCTP 132
 #endif
 
 #endif
